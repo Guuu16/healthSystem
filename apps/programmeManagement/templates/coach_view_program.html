@@ -1,0 +1,103 @@
+{% extends "coach_base.html" %}
+
+{% block title %}View Programmes{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12">
+        <div class="card grey darken-3">
+            <div class="card-content white-text">
+                <span class="card-title">View Programmes</span>
+                <form id="select-programme-form">
+                    <div class="input-field">
+                        <select id="programme_id" name="programme_id" required>
+                            <option value="" disabled selected>Choose Programme</option>
+                            <option value="1">Yoga Class</option>
+                            <option value="2">Weight Loss Program</option>
+                            <option value="3">Cardio Training</option>
+                        </select>
+                        <label for="programme_id">Programme</label>
+                    </div>
+                    <button type="submit" class="btn custom-button">View Programme</button>
+                </form>
+                <div id="programme-details" class="hide">
+                    <h5>Programme Details for <span id="programme-name"></span></h5>
+                    <table class="striped">
+                        <thead>
+                            <tr>
+                                <th>Session Date</th>
+                                <th>Session Time</th>
+                                <th>Trainer</th>
+                                <th>Number of Students</th>
+                            </tr>
+                        </thead>
+                        <tbody id="programme-sessions-tbody">
+                            <!-- 假数据 -->
+                            <tr>
+                                <td>2024-07-01</td>
+                                <td>08:00 - 09:00</td>
+                                <td>John Doe</td>
+                                <td>15</td>
+                            </tr>
+                            <tr>
+                                <td>2024-07-02</td>
+                                <td>08:00 - 09:00</td>
+                                <td>John Doe</td>
+                                <td>16</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h5>Students Enrolled</h5>
+                    <table class="striped">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="programme-students-tbody">
+                            <!-- 假数据 -->
+                            <tr>
+                                <td>Jane Smith</td>
+                                <td>janesmith@gmail.com</td>
+                                <td>(123) 456-7890</td>
+                                <td>Active</td>
+                            </tr>
+                            <tr>
+                                <td>Tom Brown</td>
+                                <td>tombrown@gmail.com</td>
+                                <td>(123) 456-7891</td>
+                                <td>Active</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 引入Materialize JS和其他必要的JS库 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
+
+        document.getElementById('select-programme-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            var programmeId = document.getElementById('programme_id').value;
+            var programmeName = document.querySelector(`#programme_id option[value="${programmeId}"]`).textContent;
+            document.getElementById('programme-name').textContent = programmeName;
+            document.getElementById('programme-details').classList.remove('hide');
+        });
+    });
+</script>
+<style>
+    .hide {
+        display: none;
+    }
+</style>
+{% endblock %}

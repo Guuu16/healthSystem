@@ -1,0 +1,157 @@
+{% extends "employee_base.html" %}
+
+{% block title %}Check In Program{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <h4 class="center-align">Check In Program</h4>
+            <form method="post">
+                {% csrf_token %}
+                
+                <!-- Select Program -->
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Select Program</span>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <select id="program_type" name="program_type" required>
+                                    <option value="" disabled selected>Choose your option</option>
+                                    <option value="entertainment">Entertainment Program</option>
+                                    <option value="health_management">Health Management Program</option>
+                                </select>
+                                <label for="program_type">Program Type</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <select id="program_name" name="program_name" required>
+                                    <option value="" disabled selected>Choose your option</option>
+                                    <option value="Yoga Class">Yoga Class</option>
+                                    <option value="Dance Class">Dance Class</option>
+                                    <option value="Cooking Class">Cooking Class</option>
+                                    <option value="Weight Loss Program">Weight Loss Program</option>
+                                    <option value="Stress Management Program">Stress Management Program</option>
+                                    <option value="Smoking Cessation Program">Smoking Cessation Program</option>
+                                </select>
+                                <label for="program_name">Program Name</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program Details -->
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Program Details</span>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="program_description" name="program_description" class="materialize-textarea" readonly></textarea>
+                                <label for="program_description" class="active">Program Description</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input id="start_date" name="start_date" type="text" class="validate" readonly>
+                                <label for="start_date" class="active">Start Date</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input id="end_date" name="end_date" type="text" class="validate" readonly>
+                                <label for="end_date" class="active">End Date</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input id="time" name="time" type="text" class="validate" readonly>
+                                <label for="time" class="active">Time</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input id="location" name="location" type="text" class="validate" readonly>
+                                <label for="location" class="active">Location</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col s12">
+                        <button type="submit" class="btn waves-effect waves-light custom-button">Check In</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
+
+        var programTypeSelect = document.getElementById('program_type');
+        var programNameSelect = document.getElementById('program_name');
+
+        programTypeSelect.addEventListener('change', function() {
+            // Clear program name selection
+            programNameSelect.value = "";
+            M.FormSelect.init(programNameSelect);
+        });
+
+        programNameSelect.addEventListener('change', function() {
+            var programName = programNameSelect.value;
+            var programType = programTypeSelect.value;
+
+            // Fake data for demonstration purposes
+            var programDetails = {
+                'Yoga Class': {
+                    description: 'Relaxing yoga class suitable for all levels.',
+                    start_date: '2024-08-01',
+                    end_date: '2024-08-30',
+                    time: '18:00',
+                    location: 'Gym Room 1'
+                },
+                'Dance Class': {
+                    description: 'Energetic dance class to improve fitness.',
+                    start_date: '2024-09-01',
+                    end_date: '2024-09-30',
+                    time: '19:00',
+                    location: 'Dance Studio'
+                },
+                'Cooking Class': {
+                    description: 'Learn to cook healthy meals.',
+                    start_date: '2024-10-01',
+                    end_date: '2024-10-30',
+                    time: '17:00',
+                    location: 'Kitchen'
+                },
+                'Weight Loss Program': {
+                    description: 'Comprehensive program to help you lose weight.',
+                    start_date: '2024-09-01',
+                    end_date: '2024-12-01',
+                    time: '16:00',
+                    location: 'Conference Room B'
+                },
+                'Stress Management Program': {
+                    description: 'Techniques to manage and reduce stress.',
+                    start_date: '2024-08-15',
+                    end_date: '2024-11-15',
+                    time: '15:00',
+                    location: 'Conference Room A'
+                },
+                'Smoking Cessation Program': {
+                    description: 'Support and guidance to quit smoking.',
+                    start_date: '2024-07-01',
+                    end_date: '2024-09-01',
+                    time: '14:00',
+                    location: 'Health Center'
+                }
+            };
+
+            var details = programDetails[programName] || {};
+
+            document.getElementById('program_description').value = details.description || '';
+            document.getElementById('start_date').value = details.start_date || '';
+            document.getElementById('end_date').value = details.end_date || '';
+            document.getElementById('time').value = details.time || '';
+            document.getElementById('location').value = details.location || '';
+
+            M.updateTextFields();
+        });
+    });
+</script>
+{% endblock %}

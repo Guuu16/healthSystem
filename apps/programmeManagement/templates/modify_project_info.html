@@ -1,0 +1,156 @@
+{% extends "employee_base.html" %}
+
+{% block title %}Modify Project Information{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <h4 class="center-align">Modify Project Information</h4>
+            <form method="post">
+                {% csrf_token %}
+                
+                <!-- Select Project -->
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Select Project</span>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <select id="project_type" name="project_type" required>
+                                    <option value="" disabled selected>Choose your option</option>
+                                    <option value="entertainment">Entertainment Project</option>
+                                    <option value="health_management">Health Management Project</option>
+                                </select>
+                                <label for="project_type">Project Type</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <select id="project_name" name="project_name" required>
+                                    <option value="" disabled selected>Choose your option</option>
+                                    <option value="Yoga Class">Yoga Class</option>
+                                    <option value="Dance Class">Dance Class</option>
+                                    <option value="Cooking Class">Cooking Class</option>
+                                    <option value="Weight Loss Program">Weight Loss Program</option>
+                                    <option value="Stress Management Program">Stress Management Program</option>
+                                    <option value="Smoking Cessation Program">Smoking Cessation Program</option>
+                                </select>
+                                <label for="project_name">Project Name</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Details -->
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Project Details</span>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="project_description" name="project_description" class="materialize-textarea" required></textarea>
+                                <label for="project_description" class="active">Project Description</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input id="start_date" name="start_date" type="date" class="validate" required>
+                                <label for="start_date" class="active">Start Date</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input id="end_date" name="end_date" type="date" class="validate" required>
+                                <label for="end_date" class="active">End Date</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input id="time" name="time" type="time" class="validate" required>
+                                <label for="time" class="active">Time</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input id="location" name="location" type="text" class="validate" required>
+                                <label for="location" class="active">Location</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col s12">
+                        <button type="submit" class="btn waves-effect waves-light custom-button">Save Changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
+
+        var projectTypeSelect = document.getElementById('project_type');
+        var projectNameSelect = document.getElementById('project_name');
+
+        projectTypeSelect.addEventListener('change', function() {
+            // Clear project name selection
+            projectNameSelect.value = "";
+            M.FormSelect.init(projectNameSelect);
+        });
+
+        projectNameSelect.addEventListener('change', function() {
+            var projectName = projectNameSelect.value;
+
+            // Fake data for demonstration purposes
+            var projectDetails = {
+                'Yoga Class': {
+                    description: 'Relaxing yoga class suitable for all levels.',
+                    start_date: '2024-08-01',
+                    end_date: '2024-08-30',
+                    time: '18:00',
+                    location: 'Gym Room 1'
+                },
+                'Dance Class': {
+                    description: 'Energetic dance class to improve fitness.',
+                    start_date: '2024-09-01',
+                    end_date: '2024-09-30',
+                    time: '19:00',
+                    location: 'Dance Studio'
+                },
+                'Cooking Class': {
+                    description: 'Learn to cook healthy meals.',
+                    start_date: '2024-10-01',
+                    end_date: '2024-10-30',
+                    time: '17:00',
+                    location: 'Kitchen'
+                },
+                'Weight Loss Program': {
+                    description: 'Comprehensive program to help you lose weight.',
+                    start_date: '2024-09-01',
+                    end_date: '2024-12-01',
+                    time: '16:00',
+                    location: 'Conference Room B'
+                },
+                'Stress Management Program': {
+                    description: 'Techniques to manage and reduce stress.',
+                    start_date: '2024-08-15',
+                    end_date: '2024-11-15',
+                    time: '15:00',
+                    location: 'Conference Room A'
+                },
+                'Smoking Cessation Program': {
+                    description: 'Support and guidance to quit smoking.',
+                    start_date: '2024-07-01',
+                    end_date: '2024-09-01',
+                    time: '14:00',
+                    location: 'Health Center'
+                }
+            };
+
+            var details = projectDetails[projectName] || {};
+
+            document.getElementById('project_description').value = details.description || '';
+            document.getElementById('start_date').value = details.start_date || '';
+            document.getElementById('end_date').value = details.end_date || '';
+            document.getElementById('time').value = details.time || '';
+            document.getElementById('location').value = details.location || '';
+
+            M.updateTextFields();
+        });
+    });
+</script>
+{% endblock %}

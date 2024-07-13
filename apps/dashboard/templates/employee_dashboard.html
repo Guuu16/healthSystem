@@ -1,0 +1,167 @@
+{% extends "employee_base.html" %}
+
+{% block title %}仪表板 | 概览{% endblock %}
+
+{% block content %}
+    <div class="row custom-row">
+        <div class="col s12 m4 custom-card">
+            <div class="card grey darken-3">
+                <div class="card-content center white-text">
+                    <span class="card-title">Number of recreational programmes</span>
+                    <h4>5</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m4 custom-card">
+            <div class="card grey darken-3">
+                <div class="card-content center white-text">
+                    <span class="card-title">Number of health management projects</span>
+                    <h4>8</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m4 custom-card">
+            <div class="card grey darken-3">
+                <div class="card-content center white-text">
+                    <span class="card-title">Number of gifts</span>
+                    <h4>12</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row custom-row">
+        <div class="col s12 m6 custom-card">
+            <div class="card grey darken-3">
+                <div class="card-content">
+                    <span class="card-title white-text">Number of participations in programmes</span>
+                    <canvas id="projectParticipationChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 custom-card">
+            <div class="card grey darken-3">
+                <div class="card-content">
+                    <span class="card-title white-text">Total number of projects involved</span>
+                    <canvas id="chart1"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctxProjects = document.getElementById('projectParticipationChart').getContext('2d');
+            var projectParticipationChart = new Chart(ctxProjects, {
+                type: 'bar',
+                data: {
+                    labels: ['2024-01', '2024-02', '2024-03', '2024-04', '2024-05'],
+                    datasets: [{
+                        label: 'Number of participations',
+                        data: [3, 7, 5, 10, 6],
+                        backgroundColor: '#26a69a'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
+            var ctx1 = document.getElementById('chart1').getContext('2d');
+            var chart1 = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: ['2024-01', '2024-02', '2024-03', '2024-04', '2024-05'],
+                    datasets: [{
+                        label: 'Total number of projects involved',
+                        data: [10, 20, 30, 40, 50],
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
+            // Adjust chart size on sidebar toggle
+            document.getElementById('toggleSidebar').addEventListener('click', function() {
+                setTimeout(function() {
+                    projectParticipationChart.resize();
+                    chart1.resize();
+                }, 300); // 确保在侧边栏动画完成后触发
+            });
+        });
+    </script>
+    <style>
+        .custom-row {
+            margin-bottom: 20px; /* 控制行间距 */
+        }
+
+        .custom-card {
+            padding: 10px; /* 控制卡片之间的间距 */
+        }
+
+        .custom-card .card {
+            height: 300px; /* 设置卡片的统一高度 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .custom-card .card-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        .custom-card .card-title {
+            font-size: 1.5rem; /* 调整卡片标题大小 */
+            margin-bottom: 10px; /* 调整卡片标题和内容之间的距离 */
+        }
+
+        .custom-card h4 {
+            font-size: 2.5rem; /* 调整卡片内容字体大小 */
+        }
+
+        .grey.darken-3 {
+            background-color: #2c3e50 !important; /* 修改背景颜色为深灰色 */
+        }
+
+        .white-text {
+            color: #ffffff !important; /* 保持文字为白色 */
+        }
+
+        @media (max-width: 992px) {
+            .custom-card .card {
+                height: auto; /* 移动端高度自适应 */
+            }
+        }
+
+        /* 确保图表容器在缩放时自适应 */
+        .card-content canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+    </style>
+{% endblock %}

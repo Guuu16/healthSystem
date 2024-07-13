@@ -1,0 +1,121 @@
+{% extends "employee_base.html" %}
+
+{% block title %}Register Entertainment Program{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <h4 class="center-align">Register Entertainment Program</h4>
+{#            <form action="{% url 'submit_entertainment_program' %}" method="post">#}
+            <form method="post">
+
+                {% csrf_token %}
+
+                <!-- Program Details -->
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Program Details</span>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <select id="program_name" name="program_name" required>
+                                    <option value="" disabled selected>Choose your option</option>
+                                    <option value="Yoga Class">Yoga Class</option>
+                                    <option value="Dance Class">Dance Class</option>
+                                    <option value="Basketball Class">Basketball Class</option>
+                                </select>
+                                <label for="program_name">Program Name</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <textarea id="program_description" name="program_description" class="materialize-textarea" required>Relaxing yoga class suitable for all levels</textarea>
+                                <label for="program_description" class="active">Program Description</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program Schedule -->
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Program Schedule</span>
+                        <div class="row">
+                            <div class="input-field col s12 m6">
+                                <input id="start_date" name="start_date" type="date" class="validate" value="2024-08-01" required>
+                                <label for="start_date" class="active">Start Date</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input id="end_date" name="end_date" type="date" class="validate" value="2024-08-30" required>
+                                <label for="end_date" class="active">End Date</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12 m6">
+                                <input id="time" name="time" type="time" class="validate" value="18:00" required>
+                                <label for="time" class="active">Time</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input id="location" name="location" type="text" class="validate" value="Gym Room 1" required>
+                                <label for="location" class="active">Location</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12 m6">
+                                <select id="sessions_per_week" name="sessions_per_week" required>
+                                    <option value="" disabled selected>Choose your option</option>
+                                    <option value="1">1 session per week</option>
+                                    <option value="2">2 sessions per week</option>
+                                    <option value="3">3 sessions per week</option>
+                                </select>
+                                <label for="sessions_per_week">Sessions per Week</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <select id="lessons_per_session" name="lessons_per_session" required>
+                                    <option value="" disabled selected>Choose your option</option>
+                                    <option value="1">1 lesson per session</option>
+                                    <option value="2">2 lessons per session</option>
+                                    <option value="3">3 lessons per session</option>
+                                </select>
+                                <label for="lessons_per_session">Lessons per Session</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Information -->
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Additional Information</span>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="additional_info" name="additional_info" class="materialize-textarea">Please bring your own yoga mat and water bottle.</textarea>
+                                <label for="additional_info" class="active">Additional Information</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input id="contact_person" name="contact_person" type="text" class="validate" value="Jane Doe" required>
+                                <label for="contact_person" class="active">Contact Person</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input id="contact_email" name="contact_email" type="email" class="validate" value="jane.doe@gmail.com" required>
+                                <label for="contact_email" class="active">Contact Email</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12">
+                        <button type="submit" class="btn waves-effect waves-light custom-button" >Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
+    });
+</script>
+{% endblock %}

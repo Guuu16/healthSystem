@@ -1,0 +1,116 @@
+{% extends "employee_base.html" %}
+{% load static %}
+{% block title %}奖励详情{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Reward Details</span>
+                <div class="row">
+                    <div class="col s12 m4 center-align">
+                        <img src="{% static 'images/touxiang.png' %}" alt="Employee Avatar" class="circle responsive-img" style="width: 150px; height: 150px;">
+                    </div>
+                    <div class="col s12 m8">
+                        <h5>Personal Information</h5>
+                        <p><strong>Name:</strong> GU JIE</p>
+                        <p><strong>Email:</strong> gujie@gmail.com</p>
+                        <p><strong>Phone:</strong> (123) 456-7890</p>
+                        <p><strong>Department:</strong> Health Management</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <h5>Reward History</h5>
+                        <table class="striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Reward</th>
+                                    <th>Description</th>
+                                    <th>Points</th>
+                                    <th>Gift</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2024-07-01</td>
+                                    <td>Employee of the Month</td>
+                                    <td>Recognized for exceptional performance and dedication</td>
+                                    <td>100</td>
+                                    <td><a href="#!" class="gift-link" data-gift="Gift Voucher">Gift Voucher</a></td>
+                                </tr>
+                                <tr>
+                                    <td>2024-06-15</td>
+                                    <td>Best Attendance</td>
+                                    <td>Achieved 100% attendance in the month of June</td>
+                                    <td>50</td>
+                                    <td><a href="#!" class="gift-link" data-gift="Fitness Tracker">Fitness Tracker</a></td>
+                                </tr>
+                                <tr>
+                                    <td>2024-05-20</td>
+                                    <td>Health Improvement</td>
+                                    <td>Significant improvement in health metrics over the past 3 months</td>
+                                    <td>80</td>
+                                    <td><a href="#!" class="gift-link" data-gift="Gym Membership">Gym Membership</a></td>
+                                </tr>
+                                <!-- 更多数据 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <h5>Performance Summary</h5>
+                        <p>GU JIE has consistently demonstrated outstanding performance and commitment. His dedication to maintaining excellent attendance and improving his health has earned him several rewards. Keep up the great work, John!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="gift-modal" class="modal">
+    <div class="modal-content">
+        <h4>Gift Details</h4>
+        <p id="gift-detail"></p>
+        <p>Please visit the finance department to collect your gift.</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.modal');
+        M.Modal.init(elems);
+
+        document.querySelectorAll('.gift-link').forEach(function(link) {
+            link.addEventListener('click', function() {
+                var giftName = this.getAttribute('data-gift');
+                var giftDetail = '';
+                switch(giftName) {
+                    case 'Gift Voucher':
+                        giftDetail = 'This voucher can be used at any participating store for purchases up to $100.';
+                        break;
+                    case 'Fitness Tracker':
+                        giftDetail = 'A high-quality fitness tracker to help you monitor your health and activity levels.';
+                        break;
+                    case 'Gym Membership':
+                        giftDetail = 'A 3-month gym membership at any of our partner gyms.';
+                        break;
+                    default:
+                        giftDetail = 'Please contact HR for more details.';
+                }
+                document.getElementById('gift-detail').textContent = giftDetail;
+                var modal = M.Modal.getInstance(document.getElementById('gift-modal'));
+                modal.open();
+            });
+        });
+    });
+</script>
+
+{% endblock %}

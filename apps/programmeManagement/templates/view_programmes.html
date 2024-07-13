@@ -1,0 +1,111 @@
+{% extends "hr_base.html" %}
+
+{% block title %}View Programmes{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12">
+        <div class="card grey darken-3">
+            <div class="card-content white-text">
+                <span class="card-title">Programmes List</span>
+                <table class="striped">
+                    <thead>
+                        <tr>
+                            <th>Programme ID</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 示例数据，可以根据实际数据进行调整 -->
+                        <tr>
+                            <td>PRG001</td>
+                            <td>Health Awareness</td>
+                            <td>Health</td>
+                            <td>Health awareness campaign</td>
+                            <td>2024-01-01</td>
+                            <td>2024-12-31</td>
+                            <td>
+                                <a href="#!" class="btn custom-button view-details" data-id="PRG001" data-name="Health Awareness" data-type="Health" data-description="Health awareness campaign" data-start="2024-01-01" data-end="2024-12-31">View</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PRG002</td>
+                            <td>Team Building</td>
+                            <td>Recreation</td>
+                            <td>Outdoor team building activities</td>
+                            <td>2024-02-15</td>
+                            <td>2024-02-20</td>
+                            <td>
+                                <a href="#!" class="btn custom-button view-details" data-id="PRG002" data-name="Team Building" data-type="Recreation" data-description="Outdoor team building activities" data-start="2024-02-15" data-end="2024-02-20">View</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PRG003</td>
+                            <td>Yoga Sessions</td>
+                            <td>Health</td>
+                            <td>Weekly yoga sessions</td>
+                            <td>2024-03-01</td>
+                            <td>2024-08-31</td>
+                            <td>
+                                <a href="#!" class="btn custom-button view-details" data-id="PRG003" data-name="Yoga Sessions" data-type="Health" data-description="Weekly yoga sessions" data-start="2024-03-01" data-end="2024-08-31">View</a>
+                            </td>
+                        </tr>
+                        <!-- 更多数据可以按需添加 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="programme-modal" class="modal">
+    <div class="modal-content">
+        <h4>Programme Details</h4>
+        <p><strong>ID:</strong> <span id="modal-programme-id"></span></p>
+        <p><strong>Name:</strong> <span id="modal-programme-name"></span></p>
+        <p><strong>Type:</strong> <span id="modal-programme-type"></span></p>
+        <p><strong>Description:</strong> <span id="modal-programme-description"></span></p>
+        <p><strong>Start Date:</strong> <span id="modal-programme-start"></span></p>
+        <p><strong>End Date:</strong> <span id="modal-programme-end"></span></p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat custom-button">Close</a>
+    </div>
+</div>
+
+<!-- 引入Materialize JS和其他必要的JS库 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.modal');
+        M.Modal.init(elems);
+
+        document.querySelectorAll('.view-details').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var programmeId = this.getAttribute('data-id');
+                var programmeName = this.getAttribute('data-name');
+                var programmeType = this.getAttribute('data-type');
+                var programmeDescription = this.getAttribute('data-description');
+                var programmeStart = this.getAttribute('data-start');
+                var programmeEnd = this.getAttribute('data-end');
+
+                document.getElementById('modal-programme-id').textContent = programmeId;
+                document.getElementById('modal-programme-name').textContent = programmeName;
+                document.getElementById('modal-programme-type').textContent = programmeType;
+                document.getElementById('modal-programme-description').textContent = programmeDescription;
+                document.getElementById('modal-programme-start').textContent = programmeStart;
+                document.getElementById('modal-programme-end').textContent = programmeEnd;
+
+                var modal = M.Modal.getInstance(document.getElementById('programme-modal'));
+                modal.open();
+            });
+        });
+    });
+</script>
+{% endblock %}

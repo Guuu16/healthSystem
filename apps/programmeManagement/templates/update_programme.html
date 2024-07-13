@@ -1,0 +1,172 @@
+{% extends "hr_base.html" %}
+
+{% block title %}Update Programme{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12">
+        <div class="card grey darken-3">
+            <div class="card-content white-text">
+                <span class="card-title">Update Programme</span>
+                <div class="input-field">
+                    <select id="programme_type" required>
+                        <option value="" disabled selected>Choose Programme Type</option>
+                        <option value="recreation">Recreation Programme</option>
+                        <option value="health">Health Management Programme</option>
+                    </select>
+                    <label for="programme_type">Programme Type</label>
+                </div>
+
+                <!-- Recreation Programme Form -->
+                <div id="recreation_form" style="display:none;">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="input-field">
+                            <select id="recreation_programme_id" name="programme_id" required>
+                                <option value="" disabled selected>Choose Recreation Programme</option>
+                                <option value="PRG002" data-name="Team Building" data-description="Outdoor team building activities" data-start="2024-02-15" data-end="2024-02-20" data-manager="Jane Smith" data-participants="John Doe, Alice Johnson" data-budget="3000" data-status="Completed" data-goals="Improve teamwork">PRG002 - Team Building</option>
+                            </select>
+                            <label for="recreation_programme_id">Programme ID</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="recreation_name" name="name" type="text" class="validate">
+                            <label for="recreation_name">Name</label>
+                        </div>
+                        <div class="input-field">
+                            <textarea id="recreation_description" name="description" class="materialize-textarea validate"></textarea>
+                            <label for="recreation_description">Description</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="recreation_start_date" name="start_date" type="text" class="datepicker validate">
+                            <label for="recreation_start_date">Start Date</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="recreation_end_date" name="end_date" type="text" class="datepicker validate">
+                            <label for="recreation_end_date">End Date</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="recreation_manager" name="manager" type="text" class="validate">
+                            <label for="recreation_manager">Project Manager</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="recreation_participants" name="participants" type="text" class="validate">
+                            <label for="recreation_participants">Participants</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="recreation_budget" name="budget" type="number" class="validate">
+                            <label for="recreation_budget">Budget</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="recreation_status" name="status" type="text" class="validate">
+                            <label for="recreation_status">Status</label>
+                        </div>
+                        <div class="input-field">
+                            <textarea id="recreation_goals" name="goals" class="materialize-textarea validate"></textarea>
+                            <label for="recreation_goals">Goals</label>
+                        </div>
+                        <button type="submit" class="btn custom-button">Update Recreation Programme</button>
+                    </form>
+                </div>
+
+                <!-- Health Management Programme Form -->
+                <div id="health_form" style="display:none;">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="input-field">
+                            <select id="health_programme_id" name="programme_id" required>
+                                <option value="" disabled selected>Choose Health Management Programme</option>
+                                <option value="PRG001" data-name="Health Awareness" data-description="Health awareness campaign" data-start="2024-01-01" data-end="2024-12-31" data-manager="John Doe" data-participants="Alice Johnson, Bob Brown" data-budget="5000" data-status="In Progress" data-goals="Increase health awareness">PRG001 - Health Awareness</option>
+                                <option value="PRG003" data-name="Yoga Sessions" data-description="Weekly yoga sessions" data-start="2024-03-01" data-end="2024-08-31" data-manager="Bob Brown" data-participants="Jane Smith, John Doe" data-budget="2000" data-status="Not Started" data-goals="Enhance physical wellness">PRG003 - Yoga Sessions</option>
+                            </select>
+                            <label for="health_programme_id">Programme ID</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="health_name" name="name" type="text" class="validate">
+                            <label for="health_name">Name</label>
+                        </div>
+                        <div class="input-field">
+                            <textarea id="health_description" name="description" class="materialize-textarea validate"></textarea>
+                            <label for="health_description">Description</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="health_start_date" name="start_date" type="text" class="datepicker validate">
+                            <label for="health_start_date">Start Date</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="health_end_date" name="end_date" type="text" class="datepicker validate">
+                            <label for="health_end_date">End Date</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="health_manager" name="manager" type="text" class="validate">
+                            <label for="health_manager">Project Manager</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="health_participants" name="participants" type="text" class="validate">
+                            <label for="health_participants">Participants</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="health_budget" name="budget" type="number" class="validate">
+                            <label for="health_budget">Budget</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="health_status" name="status" type="text" class="validate">
+                            <label for="health_status">Status</label>
+                        </div>
+                        <div class="input-field">
+                            <textarea id="health_goals" name="goals" class="materialize-textarea validate"></textarea>
+                            <label for="health_goals">Goals</label>
+                        </div>
+                        <button type="submit" class="btn custom-button">Update Health Management Programme</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('select');
+    M.FormSelect.init(elems);
+
+    var dateElems = document.querySelectorAll('.datepicker');
+    M.Datepicker.init(dateElems, {
+        format: 'yyyy-mm-dd'
+    });
+
+    document.getElementById('programme_type').addEventListener('change', function () {
+        var programmeType = this.value;
+        document.getElementById('recreation_form').style.display = programmeType === 'recreation' ? 'block' : 'none';
+        document.getElementById('health_form').style.display = programmeType === 'health' ? 'block' : 'none';
+    });
+
+    document.getElementById('recreation_programme_id').addEventListener('change', function () {
+        var selectedOption = this.options[this.selectedIndex];
+        document.getElementById('recreation_name').value = selectedOption.getAttribute('data-name');
+        document.getElementById('recreation_description').value = selectedOption.getAttribute('data-description');
+        document.getElementById('recreation_start_date').value = selectedOption.getAttribute('data-start');
+        document.getElementById('recreation_end_date').value = selectedOption.getAttribute('data-end');
+        document.getElementById('recreation_manager').value = selectedOption.getAttribute('data-manager');
+        document.getElementById('recreation_participants').value = selectedOption.getAttribute('data-participants');
+        document.getElementById('recreation_budget').value = selectedOption.getAttribute('data-budget');
+        document.getElementById('recreation_status').value = selectedOption.getAttribute('data-status');
+        document.getElementById('recreation_goals').value = selectedOption.getAttribute('data-goals');
+        M.updateTextFields();
+    });
+
+    document.getElementById('health_programme_id').addEventListener('change', function () {
+        var selectedOption = this.options[this.selectedIndex];
+        document.getElementById('health_name').value = selectedOption.getAttribute('data-name');
+        document.getElementById('health_description').value = selectedOption.getAttribute('data-description');
+        document.getElementById('health_start_date').value = selectedOption.getAttribute('data-start');
+        document.getElementById('health_end_date').value = selectedOption.getAttribute('data-end');
+        document.getElementById('health_manager').value = selectedOption.getAttribute('data-manager');
+        document.getElementById('health_participants').value = selectedOption.getAttribute('data-participants');
+        document.getElementById('health_budget').value = selectedOption.getAttribute('data-budget');
+        document.getElementById('health_status').value = selectedOption.getAttribute('data-status');
+        document.getElementById('health_goals').value = selectedOption.getAttribute('data-goals');
+        M.updateTextFields();
+    });
+});
+</script>
+{% endblock %}

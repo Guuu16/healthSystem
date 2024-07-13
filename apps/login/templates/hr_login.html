@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <!-- 引入Materialize CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .login-container {
+            display: flex;
+            width: 80%;
+            max-width: 900px;
+            height: 400px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        .login-container .image-section {
+            width: 50%;
+            background-image: url("{% static 'images/gym-pos-system-view-trainer-class-appointment.png' %}");
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .login-container .form-section {
+            width: 50%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .form-section .input-field {
+            margin-bottom: 20px;
+        }
+        .form-section .btn {
+            width: 100%;
+            background-color: #080c10; /* 添加自定义背景颜色 */
+        }
+        .form-section .btn:hover {
+            background-color: #6b7271; /* 添加悬停效果颜色 */
+        }
+        .form-section h4 {
+            font-family: 'Lobster', cursive;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+        .top-links {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+            z-index: 1; /* 确保链接在顶部 */
+        }
+        .top-links a {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            background-color: rgba(0, 0, 0, 0.5); /* 半透明背景 */
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .top-links a:hover {
+            background-color: rgba(0, 0, 0, 0.7); /* 悬停效果 */
+        }
+        .top-links {}
+    </style>
+</head>
+<div class="top-links" >
+{#                 href="{% url 'hr_login' %}"#}
+    <a href="{% url 'employee_login' %}">Employee Login</a>
+    <a href="{% url 'coach_login' %}">Coach Login</a>
+</div>
+<body>
+    <div class="login-container">
+        <div class="image-section">
+        </div>
+        <div class="form-section">
+            <h4>HR Login</h4>
+            <form action="{% url 'employee_login' %}" method="post">
+                {% csrf_token %}
+                <div class="input-field">
+                    <input id="username" name="username" type="text" class="validate" required>
+                    <label for="username">Username</label>
+                </div>
+                <div class="input-field">
+                    <input id="password" name="password" type="password" class="validate" required>
+                    <label for="password">Password</label>
+                </div>
+        <button class="btn waves-effect waves-light" onclick="window.location.href='{% url 'hr_dashboard' %}'">Login</button>            </form>
+            </form>
+        </div>
+    </div>
+
+    <!-- 引入Materialize JS和其他必要的JS库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

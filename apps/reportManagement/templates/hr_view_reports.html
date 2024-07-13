@@ -1,0 +1,126 @@
+{% extends "hr_base.html" %}
+{% load static %}
+{% block title %}View Reports{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12">
+        <div class="card grey darken-3">
+            <div class="card-content white-text">
+                <span class="card-title">View Reports</span>
+                <div class="input-field">
+                    <select id="employee_id" name="employee_id" required>
+                        <option value="" disabled selected>Choose Employee</option>
+                        <option value="1" data-name="GU JIE" data-email="gujie@gmail.com" data-phone="(123) 456-7890" data-department="Health Management" data-report='{"health_data":[{"date":"2024-07-01","weight":"70","height":"175","bmi":"22.9","bp":"120/80"},{"date":"2024-06-01","weight":"71","height":"175","bmi":"23.2","bp":"118/78"}],"programmes":[{"name":"Yoga Class","type":"Recreational","start_date":"2024-01-10","end_date":"2024-03-10","status":"Completed"},{"name":"Weight Loss Program","type":"Health Management","start_date":"2024-02-15","end_date":"2024-04-15","status":"Ongoing"}],"summary":"GU JIE has shown significant improvements in his health metrics over the past few months. He has actively participated in various programmes and has maintained a stable health condition."}'>GU JIE</option>
+                        <!-- 更多假数据 -->
+                    </select>
+                    <label for="employee_id">Employee</label>
+                </div>
+                <button id="view_details" class="btn custom-button" style="margin-top: 20px;">Detail</button>
+
+                <div id="report_content" style="display:none; margin-top: 20px;">
+                    <div class="row">
+                        <div class="col s12 m4 center-align">
+                            <img src="{% static 'images/touxiang.png' %}" alt="Employee Avatar" class="circle responsive-img" style="width: 150px; height: 150px;">
+                        </div>
+                        <div class="col s12 m8">
+                            <h5>Personal Information</h5>
+                            <p><strong>Name:</strong> <span id="employee_name"></span></p>
+                            <p><strong>Email:</strong> <span id="employee_email"></span></p>
+                            <p><strong>Phone:</strong> <span id="employee_phone"></span></p>
+                            <p><strong>Department:</strong> <span id="employee_department"></span></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <h5>Health Data</h5>
+                            <table class="striped">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Weight (kg)</th>
+                                        <th>Height (cm)</th>
+                                        <th>BMI</th>
+                                        <th>Blood Pressure</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="health_data_body">
+                                    <!-- 健康数据将动态插入 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <h5>Programme Participation</h5>
+                            <table class="striped">
+                                <thead>
+                                    <tr>
+                                        <th>Programme Name</th>
+                                        <th>Type</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="programme_data_body">
+                                    <!-- 项目参与数据将动态插入 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <h5>Performance Summary</h5>
+                            <p id="performance_summary"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 引入Materialize JS和其他必要的JS库 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
+
+        document.getElementById('view_details').addEventListener('click', function () {
+            var selectedOption = document.getElementById('employee_id').options[document.getElementById('employee_id').selectedIndex];
+            var name = selectedOption.getAttribute('data-name');
+            var email = selectedOption.getAttribute('data-email');
+            var phone = selectedOption.getAttribute('data-phone');
+            var department = selectedOption.getAttribute('data-department');
+            var report = JSON.parse(selectedOption.getAttribute('data-report'));
+
+            document.getElementById('employee_name').textContent = name;
+            document.getElementById('employee_email').textContent = email;
+            document.getElementById('employee_phone').textContent = phone;
+            document.getElementById('employee_department').textContent = department;
+
+            var healthDataBody = document.getElementById('health_data_body');
+            healthDataBody.innerHTML = '';
+            report.health_data.forEach(function (data) {
+                var tr = document.createElement('tr');
+                tr.innerHTML = '<td>' + data.date + '</td><td>' + data.weight + '</td><td>' + data.height + '</td><td>' + data.bmi + '</td><td>' + data.bp + '</td>';
+                healthDataBody.appendChild(tr);
+            });
+
+            var programmeDataBody = document.getElementById('programme_data_body');
+            programmeDataBody.innerHTML = '';
+            report.programmes.forEach(function (data) {
+                var tr = document.createElement('tr');
+                tr.innerHTML = '<td>' + data.name + '</td><td>' + data.type + '</td><td>' + data.start_date + '</td><td>' + data.end_date + '</td><td>' + data.status + '</td>';
+                programmeDataBody.appendChild(tr);
+            });
+
+            document.getElementById('performance_summary').textContent = report.summary;
+
+            document.getElementById('report_content').style.display = 'block';
+        });
+    });
+</script>
+{% endblock %}

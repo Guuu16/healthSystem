@@ -1,0 +1,62 @@
+{% extends "hr_base.html" %}
+
+{% block title %}HR Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12 m6">
+        <div class="card grey darken-3">
+            <div class="card-content white-text center">
+                <span class="card-title">Total Employees</span>
+                <h4>150</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m6">
+        <div class="card grey darken-3">
+            <div class="card-content white-text center">
+                <span class="card-title">Active Programmes</span>
+                <h4>20</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m6">
+        <div class="card grey darken-3">
+            <div class="card-content white-text center">
+                <span class="card-title">Pending Rewards</span>
+                <h4>35</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m6">
+        <div class="card grey darken-3">
+            <div class="card-content white-text center">
+                <span class="card-title">Reports</span>
+                <h4>50</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12">
+        <div class="card grey darken-3">
+            <div class="card-content white-text">
+                <span class="card-title">Quick Links</span>
+                <div class="row">
+                    <div class="col s12 m4">
+                        <a href="/employeeManagement/add_employee/" class="btn custom-button">Add Employee</a>
+                    </div>
+                    <div class="col s12 m4">
+                        <a href="/programmeManagement/view_programmes/" class="btn custom-button">View Programmes</a>
+                    </div>
+                    <div class="col s12 m4">
+                        <a href="/gift/assignGifts/" class="btn custom-button">Assign Rewards</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

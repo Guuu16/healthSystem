@@ -1,0 +1,553 @@
+{% extends "coach_base.html" %}
+{% load static %}
+{% block title %}Review and Approve Reports{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12">
+        <div class="card grey darken-3">
+            <div class="card-content white-text">
+                <span class="card-title">Review and Approve Reports</span>
+                <ul class="tabs custom-background">
+                    <li class="tab col s6"><a href="#pending-reports" class="white-text">Pending Approval</a></li>
+                    <li class="tab col s6"><a href="#approved-reports" class="white-text">Approved</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="pending-reports" class="col s12 custom-background">
+    <div class="card grey darken-3">
+        <div class="card-content white-text ">
+            <span class="card-title">Pending Reports</span>
+            <table class="striped white-text">
+                <thead>
+                    <tr>
+                        <th>Report Date</th>
+                        <th>Student Name</th>
+                        <th>Programme</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 假数据 -->
+                    <tr>
+                        <td>2024-07-01</td>
+                        <td>Jane Smith</td>
+                        <td>Yoga Class</td>
+                        <td>Pending</td>
+                        <td><a href="#!" class="report-link white-text" data-report-id="1">View and Approve</a></td>
+                    </tr>
+                    <tr>
+                        <td>2024-06-15</td>
+                        <td>Tom Brown</td>
+                        <td>Weight Loss Program</td>
+                        <td>Pending</td>
+                        <td><a href="#!" class="report-link white-text" data-report-id="2">View and Approve</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="approved-reports" class="col s12">
+    <div class="card grey darken-3">
+        <div class="card-content white-text">
+            <span class="card-title">Approved Reports</span>
+            <table class="striped white-text">
+                <thead>
+                    <tr>
+                        <th>Report Date</th>
+                        <th>Student Name</th>
+                        <th>Programme</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 假数据 -->
+                    <tr>
+                        <td>2024-05-20</td>
+                        <td>Alice Johnson</td>
+                        <td>Cardio Training</td>
+                        <td>Approved</td>
+                        <td><a href="#!" class="report-link white-text" data-report-id="3">View</a></td>
+                    </tr>
+                    <tr>
+                        <td>2024-04-10</td>
+                        <td>Bob Lee</td>
+                        <td>Strength Training</td>
+                        <td>Approved</td>
+                        <td><a href="#!" class="report-link white-text" data-report-id="4">View</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="report-modal" class="modal">
+    <div class="modal-content">
+        <h4>Report Details</h4>
+        <div id="report-detail">
+            <!-- 详细报告数据 -->
+            <div class="row">
+                <div class="col s12 m4 center-align">
+                    <img src="{% static 'images/touxiang.png' %}" alt="Employee Avatar" class="circle responsive-img" style="width: 150px; height: 150px;">
+                </div>
+                <div class="col s12 m8">
+                    <h5>Personal Information</h5>
+                    <p><strong>Name:</strong> GU JIE</p>
+                    <p><strong>Email:</strong> gujie@gmail.com</p>
+                    <p><strong>Phone:</strong> (123) 456-7890</p>
+                    <p><strong>Department:</strong> Health Management</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <h5>Health Data</h5>
+                    <table class="striped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Weight (kg)</th>
+                                <th>Height (cm)</th>
+                                <th>BMI</th>
+                                <th>Blood Pressure</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2024-07-01</td>
+                                <td>70</td>
+                                <td>175</td>
+                                <td>22.9</td>
+                                <td>120/80</td>
+                            </tr>
+                            <tr>
+                                <td>2024-06-01</td>
+                                <td>71</td>
+                                <td>175</td>
+                                <td>23.2</td>
+                                <td>118/78</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <h5>Programme Participation</h5>
+                    <table class="striped">
+                        <thead>
+                            <tr>
+                                <th>Programme Name</th>
+                                <th>Type</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Yoga Class</td>
+                                <td>Recreational</td>
+                                <td>2024-01-10</td>
+                                <td>2024-03-10</td>
+                                <td>Completed</td>
+                            </tr>
+                            <tr>
+                                <td>Weight Loss Program</td>
+                                <td>Health Management</td>
+                                <td>2024-02-15</td>
+                                <td>2024-04-15</td>
+                                <td>Ongoing</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <h5>Performance Summary</h5>
+                    <p>GU JIE has shown significant improvements in his health metrics over the past few months. He has actively participated in various programmes and has maintained a stable health condition.</p>
+                </div>
+            </div>
+        </div>
+        <p id="approve-question">Approve this report?</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="approve-button">Approve</a>
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="edit-button">Edit</a>
+
+    </div>
+</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+ document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.tabs');
+        M.Tabs.init(elems);
+
+        var modalElems = document.querySelectorAll('.modal');
+        M.Modal.init(modalElems);
+
+        document.querySelectorAll('.report-link').forEach(function (link) {
+            link.addEventListener('click', function () {
+                var reportId = this.getAttribute('data-report-id');
+                var reportDetail = document.getElementById('report-detail');
+                var approveQuestion = document.getElementById('approve-question');
+                var approveButton = document.getElementById('approve-button');
+                var editButton = document.getElementById('edit-button');  // 新增的修改按钮
+                if (reportId == 1) {
+                    reportDetail.innerHTML = `
+                        <div class="row">
+                            <div class="col s12 m4 center-align">
+                                <img src="{% static 'images/touxiang.png' %}" alt="Employee Avatar" class="circle responsive-img" style="width: 150px; height: 150px;">
+                            </div>
+                            <div class="col s12 m8">
+                                <h5>Personal Information</h5>
+                                <p><strong>Name:</strong> Jane Smith</p>
+                                <p><strong>Email:</strong> janesmith@gmail.com</p>
+                                <p><strong>Phone:</strong> (123) 456-7890</p>
+                                <p><strong>Department:</strong> Yoga Class</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <h5>Health Data</h5>
+                                <table class="striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Weight (kg)</th>
+                                            <th>Height (cm)</th>
+                                            <th>BMI</th>
+                                            <th>Blood Pressure</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2024-07-01</td>
+                                            <td>65</td>
+                                            <td>168</td>
+                                            <td>23.0</td>
+                                            <td>115/75</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2024-06-01</td>
+                                            <td>66</td>
+                                            <td>168</td>
+                                            <td>23.4</td>
+                                            <td>118/76</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <h5>Programme Participation</h5>
+                                <table class="striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Programme Name</th>
+                                            <th>Type</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Yoga Class</td>
+                                            <td>Recreational</td>
+                                            <td>2024-01-10</td>
+                                            <td>2024-03-10</td>
+                                            <td>Completed</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <h5>Performance Summary</h5>
+                                <p>Jane Smith has shown significant improvements in her health metrics over the past few months. She has actively participated in various programmes and has maintained a stable health condition.</p>
+                            </div>
+                        </div>
+                    `;
+                } else if (reportId == 2) {
+                    reportDetail.innerHTML = `
+                        <div class="row">
+                            <div class="col s12 m4 center-align">
+                                <img src="{% static 'images/touxiang.png' %}" alt="Employee Avatar" class="circle responsive-img" style="width: 150px; height: 150px;">
+                            </div>
+                            <div class="col s12 m8">
+                                <h5>Personal Information</h5>
+                                <p><strong>Name:</strong> Tom Brown</p>
+                                <p><strong>Email:</strong> tombrown@gmail.com</p>
+                                <p><strong>Phone:</strong> (123) 456-7890</p>
+                                <p><strong>Department:</strong> Weight Loss Program</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <h5>Health Data</h5>
+                                <table class="striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Weight (kg)</th>
+                                            <th>Height (cm)</th>
+                                            <th>BMI</th>
+                                            <th>Blood Pressure</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2024-07-01</td>
+                                            <td>80</td>
+                                            <td>180</td>
+                                            <td>24.7</td>
+                                            <td>130/85</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2024-06-01</td>
+                                            <td>82</td>
+                                            <td>180</td>
+                                            <td>25.3</td>
+                                            <td>132/87</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <h5>Programme Participation</h5>
+                                <table class="striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Programme Name</th>
+                                            <th>Type</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Weight Loss Program</td>
+                                            <td>Health Management</td>
+                                            <td>2024-02-15</td>
+                                            <td>2024-04-15</td>
+                                            <td>Ongoing</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <h5>Performance Summary</h5>
+                                <p>Tom Brown has shown significant improvements in his health metrics over the past few months. He has actively participated in various programmes and has maintained a stable health condition.</p>
+                            </div>
+                        </div>
+                    `;
+                } else if (reportId == 3) {
+                    reportDetail.innerHTML = `
+                        <div class="row">
+                            <div class="col s12 m4 center-align">
+                                <img src="{% static 'images/touxiang.png' %}" alt="Employee Avatar" class="circle responsive-img" style="width: 150px; height: 150px;">
+                            </div>
+                            <div class="col s12 m8">
+                                <h5>Personal Information</h5>
+                                <p><strong>Name:</strong> Alice Johnson</p>
+                                <p><strong>Email:</strong> alicejohnson@gmail.com</p>
+                                <p><strong>Phone:</strong> (123) 456-7890</p>
+                                <p><strong>Department:</strong> Cardio Training</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <h5>Health Data</h5>
+                                <table class="striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Weight (kg)</th>
+                                            <th>Height (cm)</th>
+                                            <th>BMI</th>
+                                            <th>Blood Pressure</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2024-05-20</td>
+                                             <td>60</td>
+                                            <td>165</td>
+                                            <td>22.0</td>
+                                            <td>110/70</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2024-04-20</td>
+                                            <td>62</td>
+                                            <td>165</td>
+                                            <td>22.8</td>
+                                            <td>112/72</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <h5>Programme Participation</h5>
+                                <table class="striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Programme Name</th>
+                                            <th>Type</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Cardio Training</td>
+                                            <td>Health Management</td>
+                                            <td>2024-03-15</td>
+                                            <td>2024-05-15</td>
+                                            <td>Completed</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <h5>Performance Summary</h5>
+                                <p>Alice Johnson has shown significant improvements in her health metrics over the past few months. She has actively participated in various programmes and has maintained a stable health condition.</p>
+                            </div>
+                        </div>
+                    `;
+                    approveQuestion.style.display = 'none';
+                    approveButton.style.display = 'none';
+                    editButton.style.display = 'inline-block';
+                } else if (reportId == 4) {
+                    reportDetail.innerHTML = `
+                        <div class="row">
+                            <div class="col s12 m4 center-align">
+                                <img src="{% static 'images/touxiang.png' %}" alt="Employee Avatar" class="circle responsive-img" style="width: 150px; height: 150px;">
+                            </div>
+                            <div class="col s12 m8">
+                                <h5>Personal Information</h5>
+                                <p><strong>Name:</strong> Bob Lee</p>
+                                <p><strong>Email:</strong> boblee@gmail.com</p>
+                                <p><strong>Phone:</strong> (123) 456-7890</p>
+                                <p><strong>Department:</strong> Strength Training</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <h5>Health Data</h5>
+                                <table class="striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Weight (kg)</th>
+                                            <th>Height (cm)</th>
+                                            <th>BMI</th>
+                                            <th>Blood Pressure</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2024-04-20</td>
+                                            <td>85</td>
+                                            <td>178</td>
+                                            <td>26.8</td>
+                                            <td>125/80</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2024-03-20</td>
+                                            <td>87</td>
+                                            <td>178</td>
+                                            <td>27.5</td>
+                                            <td>128/82</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <h5>Programme Participation</h5>
+                                <table class="striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Programme Name</th>
+                                            <th>Type</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Strength Training</td>
+                                            <td>Health Management</td>
+                                            <td>2024-02-10</td>
+                                            <td>2024-04-10</td>
+                                            <td>Completed</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <h5>Performance Summary</h5>
+                                <p>Bob Lee has shown significant improvements in his health metrics over the past few months. He has actively participated in various programmes and has maintained a stable health condition.</p>
+                            </div>
+                        </div>
+                    `;
+                    approveQuestion.style.display = 'none';
+                    approveButton.style.display = 'none';
+                    editButton.style.display = 'inline-block';
+                }
+                var modal = M.Modal.getInstance(document.getElementById('report-modal'));
+                modal.open();
+            });
+        });
+
+        document.getElementById('approve-button').addEventListener('click', function () {
+            // 处理报告批准逻辑，例如发送批准请求到服务器
+            alert('Report approved!');
+        });
+
+        document.getElementById('edit-button').addEventListener('click', function () {
+            // 处理报告修改逻辑，例如打开编辑页面
+            alert('Editing report!');
+        });
+    });
+</script>
+
+
+
+
+    <style>
+    .hide {
+        display: none;
+    }
+    .custom-background {
+        background-color: #292d2d; /* 设置背景颜色为灰色 */
+    }
+</style>
+{% endblock %}

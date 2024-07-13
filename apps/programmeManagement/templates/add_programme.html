@@ -1,0 +1,131 @@
+{% extends "hr_base.html" %}
+
+{% block title %}Add Programme{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12">
+        <div class="card grey darken-3">
+            <div class="card-content white-text">
+                <span class="card-title">Add Programme</span>
+                <div class="input-field">
+                    <select id="programme_type" required>
+                        <option value="" disabled selected>Choose Programme Type</option>
+                        <option value="recreation">Recreation Programme</option>
+                        <option value="health">Health Management Programme</option>
+                    </select>
+                    <label for="programme_type">Programme Type</label>
+                </div>
+
+                <!-- Recreation Programme Form -->
+                <div id="recreation_form" style="display:none;">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="input-field">
+                            <input id="recreation_name" name="name" type="text" class="validate" required>
+                            <label for="recreation_name">Name</label>
+                        </div>
+                        <div class="input-field">
+                            <textarea id="recreation_description" name="description" class="materialize-textarea validate" required></textarea>
+                            <label for="recreation_description">Description</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="recreation_start_date" name="start_date" type="text" class="datepicker validate" required>
+                            <label for="recreation_start_date">Start Date</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="recreation_end_date" name="end_date" type="text" class="datepicker validate" required>
+                            <label for="recreation_end_date">End Date</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="recreation_manager" name="manager" type="text" class="validate" required>
+                            <label for="recreation_manager">Project Manager</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="recreation_participants" name="participants" type="text" class="validate" required>
+                            <label for="recreation_participants">Participants</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="recreation_budget" name="budget" type="number" class="validate" required>
+                            <label for="recreation_budget">Budget</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="recreation_status" name="status" type="text" class="validate" required>
+                            <label for="recreation_status">Status</label>
+                        </div>
+                        <div class="input-field">
+                            <textarea id="recreation_goals" name="goals" class="materialize-textarea validate" required></textarea>
+                            <label for="recreation_goals">Goals</label>
+                        </div>
+                        <button type="submit" class="btn custom-button">Add Recreation Programme</button>
+                    </form>
+                </div>
+
+                <!-- Health Management Programme Form -->
+                <div id="health_form" style="display:none;">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="input-field">
+                            <input id="health_name" name="name" type="text" class="validate" required>
+                            <label for="health_name">Name</label>
+                        </div>
+                        <div class="input-field">
+                            <textarea id="health_description" name="description" class="materialize-textarea validate" required></textarea>
+                            <label for="health_description">Description</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="health_start_date" name="start_date" type="text" class="datepicker validate" required>
+                            <label for="health_start_date">Start Date</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="health_end_date" name="end_date" type="text" class="datepicker validate" required>
+                            <label for="health_end_date">End Date</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="health_manager" name="manager" type="text" class="validate" required>
+                            <label for="health_manager">Project Manager</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="health_participants" name="participants" type="text" class="validate" required>
+                            <label for="health_participants">Participants</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="health_budget" name="budget" type="number" class="validate" required>
+                            <label for="health_budget">Budget</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="health_status" name="status" type="text" class="validate" required>
+                            <label for="health_status">Status</label>
+                        </div>
+                        <div class="input-field">
+                            <textarea id="health_goals" name="goals" class="materialize-textarea validate" required></textarea>
+                            <label for="health_goals">Goals</label>
+                        </div>
+                        <button type="submit" class="btn custom-button">Add Health Management Programme</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 引入Materialize JS和其他必要的JS库 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
+
+        var dateElems = document.querySelectorAll('.datepicker');
+        M.Datepicker.init(dateElems, {
+            format: 'yyyy-mm-dd'
+        });
+
+        document.getElementById('programme_type').addEventListener('change', function () {
+            var programmeType = this.value;
+            document.getElementById('recreation_form').style.display = programmeType === 'recreation' ? 'block' : 'none';
+            document.getElementById('health_form').style.display = programmeType === 'health' ? 'block' : 'none';
+        });
+    });
+</script>
+{% endblock %}

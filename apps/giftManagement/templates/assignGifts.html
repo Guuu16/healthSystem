@@ -1,0 +1,83 @@
+{% extends "hr_base.html" %}
+
+{% block title %}Assign Gifts{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12">
+        <div class="card grey darken-3">
+            <div class="card-content white-text">
+                <span class="card-title">Assign Gifts to Employees</span>
+                <div class="input-field">
+                    <select id="employee_id" name="employee_id" required>
+                        <option value="" disabled selected>Choose Employee</option>
+                        <option value="1" data-name="John Doe" data-email="john.doe@example.com" data-phone="(123) 456-7890" data-department="IT">John Doe</option>
+                        <option value="2" data-name="Jane Smith" data-email="jane.smith@example.com" data-phone="(987) 654-3210" data-department="HR">Jane Smith</option>
+                        <option value="3" data-name="Alice Johnson" data-email="alice.johnson@example.com" data-phone="(555) 123-4567" data-department="Finance">Alice Johnson</option>
+                        <option value="4" data-name="Bob Brown" data-email="bob.brown@example.com" data-phone="(444) 987-6543" data-department="Marketing">Bob Brown</option>
+                    </select>
+                    <label for="employee_id">Employee</label>
+                </div>
+
+                <div id="employee_details" style="display:none;">
+                    <h5>Employee Details</h5>
+                    <p><strong>Name:</strong> <span id="employee_name"></span></p>
+                    <p><strong>Email:</strong> <span id="employee_email"></span></p>
+                    <p><strong>Phone:</strong> <span id="employee_phone"></span></p>
+                    <p><strong>Department:</strong> <span id="employee_department"></span></p>
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="input-field">
+                        <input id="reward_name" name="reward_name" type="text" class="validate" required>
+                        <label for="reward_name">Reward Name</label>
+                    </div>
+                    <div class="input-field">
+                        <textarea id="reward_description" name="reward_description" class="materialize-textarea" required></textarea>
+                        <label for="reward_description">Description</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="reward_points" name="reward_points" type="number" class="validate" required>
+                        <label for="reward_points">Points</label>
+                    </div>
+                    <div class="input-field">
+                        <select id="gift_id" name="gift_id" required>
+                            <option value="" disabled selected>Choose Gift</option>
+                            <option value="Gift Voucher">Gift Voucher</option>
+                            <option value="Fitness Tracker">Fitness Tracker</option>
+                            <option value="Gym Membership">Gym Membership</option>
+                        </select>
+                        <label for="gift_id">Gift</label>
+                    </div>
+                    <button type="submit" class="btn custom-button">Assign Gift</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 引入Materialize JS和其他必要的JS库 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
+
+        document.getElementById('employee_id').addEventListener('change', function () {
+            var selectedOption = this.options[this.selectedIndex];
+            var name = selectedOption.getAttribute('data-name');
+            var email = selectedOption.getAttribute('data-email');
+            var phone = selectedOption.getAttribute('data-phone');
+            var department = selectedOption.getAttribute('data-department');
+
+            document.getElementById('employee_name').textContent = name;
+            document.getElementById('employee_email').textContent = email;
+            document.getElementById('employee_phone').textContent = phone;
+            document.getElementById('employee_department').textContent = department;
+
+            document.getElementById('employee_details').style.display = 'block';
+        });
+    });
+</script>
+{% endblock %}

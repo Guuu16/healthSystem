@@ -1,0 +1,191 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}HR Dashboard{% endblock %}</title>
+    <!-- 引入Materialize CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header, main {
+            flex: 1 0 auto;
+        }
+
+        .nav-wrapper {
+            background-color: #2c3e50;
+        }
+
+        .user-view {
+            background-color: #292d2d;
+            position: relative;
+            padding-right: 64px;
+        }
+
+        .user-view img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .shrink-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .collapsible-header {
+            background-color: #263238;
+            color: white;
+            border: none;
+        }
+
+        .collapsible-body {
+            background-color: #37474f;
+            color: white;
+        }
+
+        .collapsible-header i {
+            color: white;
+            transition: transform 0.3s;
+        }
+
+        .collapsible-header.active i {
+            transform: rotate(180deg);
+        }
+
+        .sidenav {
+            width: 300px;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            margin-left: 300px;
+            padding: 20px;
+        }
+
+        .shrinked .main-content {
+            margin-left: 64px;
+        }
+
+        .shrinked .sidenav {
+            width: 64px;
+        }
+
+        .shrinked .sidenav .collapsible-body {
+            display: none;
+        }
+
+        .shrinked .sidenav .collapsible-header {
+            justify-content: center;
+        }
+
+        .custom-button {
+            background-color: #080c10 !important; /* 设置按钮的背景颜色 */
+            color: white !important; /* 设置按钮的文本颜色 */
+        }
+
+        .custom-button:hover {
+            background-color: #292d2d !important; /* 设置按钮悬停时的背景颜色 */
+        }
+    </style>
+</head>
+<body>
+{#<header>#}
+{#    <nav class="black">#}
+{#        <div class="nav-wrapper">#}
+{#            <a href="#" class="brand-logo center">HR Dashboard</a>#}
+{#            <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>#}
+{#        </div>#}
+{#    </nav>#}
+{#</header>#}
+
+<ul id="slide-out" class="sidenav sidenav-fixed">
+    <li>
+        <div class="user-view">
+            <div class="background"></div>
+            <a href="#user"><img class="circle" src="{% static 'images/touxiang.png' %}"></a>
+            <a href="#name"><span class="white-text name">HR Name</span></a>
+            <a href="#email"><span class="white-text email">hr@example.com</span></a>
+            <i id="toggleSidebar" class="material-icons shrink-icon">chevron_left</i>
+        </div>
+    </li>
+    <li>
+        <ul class="collapsible collapsible-accordion">
+            <li>
+                <a class="collapsible-header" href='/dashboard/hr/'><i class="material-icons">dashboard</i>Dashboard</a>
+            </li>
+            <li>
+                <a class="collapsible-header"><i class="material-icons">person</i>Employee Management<i
+                        class="material-icons right">arrow_drop_down</i></a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a href="/employeeManagement/add_employee/">Add Employee</a></li>
+                        <li><a href="/employeeManagement/update_employee/">Update Employee</a></li>
+                        <li><a href="/employeeManagement/delete_employee/">Delete Employee</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a class="collapsible-header"><i class="material-icons">assignment</i>Program Management<i
+                        class="material-icons right">arrow_drop_down</i></a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a href="/programmeManagement/view_programmes/">View Programmes</a></li>
+                        <li><a href="/programmeManagement/add_programme/">Add Programme</a></li>
+                        <li><a href="/programmeManagement/update_programme/">Update Programme</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a class="collapsible-header"><i class="material-icons">card_giftcard</i>Reward Management<i
+                        class="material-icons right">arrow_drop_down</i></a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a href="/gift/view_rewards/">View Rewards</a></li>
+                        <li><a href="/gift/assignGifts/">Assign Rewards</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li><a class="collapsible-header" href="/report/hr_view_report/"><i class="material-icons">insert_chart</i>Reports</a>
+            </li>
+            <li><a class="collapsible-header" href="/login/hr_login/"><i class="material-icons">exit_to_app</i>Logout</a></li>
+        </ul>
+    </li>
+</ul>
+
+<main class="main-content">
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</main>
+
+<!-- 引入Materialize JS和其他必要的JS库 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.sidenav');
+        M.Sidenav.init(elems);
+        var collapsibles = document.querySelectorAll('.collapsible');
+        M.Collapsible.init(collapsibles);
+
+        // 缩放侧边栏功能
+        document.getElementById('toggleSidebar').addEventListener('click', function () {
+            document.body.classList.toggle('shrinked');
+            var icon = document.getElementById('toggleSidebar').textContent.trim();
+            document.getElementById('toggleSidebar').textContent = icon === 'chevron_left' ? 'chevron_right' : 'chevron_left';
+        });
+    });
+</script>
+</body>
+</html>
