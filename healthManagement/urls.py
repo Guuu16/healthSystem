@@ -19,9 +19,10 @@ from django.urls import path
 
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', RedirectView.as_view(url='/login/employee_login/', permanent=False)),
     path('dashboard/', include('apps.dashboard.urls')),
     path('login/', include('apps.login.urls')),
     path('healthManagement/',include('apps.healthManagement.urls')),
