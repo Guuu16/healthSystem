@@ -62,7 +62,7 @@
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: true,
+                    maintainAspectRatio: false,
                     scales: {
                         yAxes: [{
                             ticks: {
@@ -88,7 +88,7 @@
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: true,
+                    maintainAspectRatio: false,
                     scales: {
                         yAxes: [{
                             ticks: {
@@ -155,6 +155,13 @@
         @media (max-width: 992px) {
             .custom-card .card {
                 height: auto; /* 移动端高度自适应 */
+            }
+        }
+
+        @media (max-width: 767px) {
+            .custom-card .card-content canvas {
+                width: 100% !important;
+                height: 200px !important; /* 为小屏幕设置固定高度 */
             }
         }
 
